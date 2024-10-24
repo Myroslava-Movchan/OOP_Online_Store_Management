@@ -1,7 +1,8 @@
 ﻿using Online_Store_Management.Models;
+using Online_Store_Management.Interfaces;
 namespace Online_Store_Management.Services
 {
-    public class CustomerService : IDisposable
+    public class CustomerService : ICustomer
     {
         private static readonly string[] LastNamesNew = new[]
         {
@@ -30,8 +31,6 @@ namespace Online_Store_Management.Services
 
         private FileStream _transactionLogFileStream;
         private bool _disposed = false;
-
-
 
         public void LogAction(string message)
         {
@@ -75,7 +74,8 @@ namespace Online_Store_Management.Services
             var customer = new NewCustomer()
             {
                 LastName = lastName,
-                Id = Random.Shared.Next(1, 6)
+                Id = Random.Shared.Next(1, 6),
+                PostIndex = PostIndexes[Random.Shared.Next(PostIndexes.Length)]
             };
             var product = new Product()
             {
